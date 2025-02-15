@@ -16,22 +16,41 @@ The fetch tool will truncate the response, but by using the `start_index` argume
   - `start_index` (integer, optional): Start content from this character index (default: 0)
   - `raw` (boolean, optional): Get raw content without markdown conversion (default: false)
 
-### Prompts
+### Available Prompts
 
-- **fetch**
-  - Fetch a URL and extract its contents as markdown
-  - Arguments:
-    - `url` (string, required): URL to fetch
-
-## Installation
-
-```bash
-
-```
+- `fetch` - Fetch a URL and extract its contents as markdown
+  - `url` (string, required): URL to fetch
 
 ## Usage
 
+```json
+"mcpServers": {
+  "fetch": {
+    "command": "npx",
+    "args": ["mcp-fetch-node"]
+  }
+}
+```
+
+```json
+"mcpServers": {
+  "fetch": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "tgambet/mcp-fetch-node"]
+  }
+}
+```
+
 ## Features
+
+- [x] Fetch and extract content from a URL
+- [x] Respect `robots.txt` (can be disabled)
+- [x] User-Agent customization
+- [x] Relevant content extraction
+- [x] Raw content or markdown conversion
+- [x] Pagination
+- [ ] In-memory temporary cache for faster responses
+- [ ] Logs and progress
 
 ## Development
 
@@ -52,3 +71,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## TODO
+
+- [ ] Add LRU cache
+- [ ] Publish to npm
+- [ ] Dockerize and publish to docker hub
+- [ ] Integrate semantic release
+- [ ] Add user logs and progress
+- [ ] Add tests
+- [ ] Add documentation & examples
+- [ ] Add benchmarks for extraction: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
