@@ -1,6 +1,8 @@
-function main(): void {
-  // Your application code here
-  console.log('Hello, World!');
+import { fetchPage } from "./service.js";
+
+async function main() {
+  const page = await fetchPage('https://www.google.com');
+  console.log(page);
 }
 
-main();
+await main();

@@ -1,4 +1,4 @@
-name: Publish Package
+name: Publish
 
 on:
   push:
@@ -11,17 +11,25 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 'lts/*'
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+  
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
 
       - name: Publish package
-        run: npm publish
+        run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
