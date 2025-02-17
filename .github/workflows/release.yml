@@ -45,11 +45,12 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+      - name: Verify the integrity of installed dependencies
         run: npm audit signatures
 
       - name: Release
         env:
+          DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
