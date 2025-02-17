@@ -28,4 +28,3 @@ tests/
 .prettierrc
 .releaserc.yml
 eslint.config.js
-tsconfig.json
