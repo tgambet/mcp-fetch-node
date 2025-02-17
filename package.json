@@ -10,7 +10,7 @@
     "build": "tsc",
     "lint": "eslint src/**",
     "lint:fix": "eslint src/** --fix",
-    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "format": "prettier --write \"**/*.{ts,json,md,yml,js}\"",
     "format:check": "prettier --check .",
     "test": "node --import tsx --test tests/**"
   },
