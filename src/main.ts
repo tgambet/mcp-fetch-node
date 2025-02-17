@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { FastMCP } from 'fastmcp';
 import { fetchPrompt } from './prompts/fetch.prompt.js';
 import { fetchTool } from './tools/fetch.tool.js';
