@@ -1,10 +1,10 @@
 # Fetch MCP Server
 
-A port of [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js.
+A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) (python) for Node.js.
 
 ## Description
 
-A Model Context Protocol server that provides web content fetching capabilities. This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
+A [Model Context Protocol](https://modelcontextprotocol.io/) server that provides web content fetching capabilities. This server enables LLMs to retrieve and process content from web pages, converting HTML to markdown for easier consumption.
 
 The fetch tool will truncate the response, but by using the `start_index` argument, you can specify where to start the content extraction. This lets models read a webpage in chunks, until they find the information they need.
 
@@ -49,7 +49,7 @@ The fetch tool will truncate the response, but by using the `start_index` argume
 - [x] Relevant content extraction
 - [x] Raw content or markdown conversion
 - [x] Pagination
-- [ ] In-memory temporary cache for faster responses
+- [ ] In-memory temporary cache for faster responses, especially when paginating
 - [ ] Logs and progress
 
 ## Development

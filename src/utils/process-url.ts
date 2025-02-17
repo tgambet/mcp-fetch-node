@@ -8,7 +8,7 @@ function isHTML(content: string, contentType?: string | null): boolean {
 
 export async function processURL(url: string, userAgent: string, raw: boolean) {
   const { content, contentType } = await fetch(url, userAgent);
-  
+
   if (!raw && isHTML(content, contentType)) {
     const extracted = extract(content);
     const formatted = format(extracted);
