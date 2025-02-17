@@ -41,6 +41,29 @@ The fetch tool will truncate the response, but by using the `start_index` argume
 }
 ```
 
+### Customization - robots.txt
+
+By default, the server will obey a websites robots.txt file if the request came from the model (via a tool), but not if
+the request was user initiated (via a prompt). This can be disabled by adding the argument `--ignore-robots-txt` to the
+`args` list in the configuration.
+
+### Customization - User-agent
+
+By default, depending on if the request came from the model (via a tool), or was user initiated (via a prompt), the
+server will use either the user-agent
+
+```
+ModelContextProtocol/1.0 (Autonomous; +https://github.com/tgambet/mcp-fetch-node)
+```
+
+or
+
+```
+ModelContextProtocol/1.0 (User-Specified; +https://github.com/tgambet/mcp-fetch-node)
+```
+
+This can be customized by adding the argument `--user-agent=YourUserAgent` to the `args` list in the configuration.
+
 ## Features
 
 - [x] Fetch and extract content from a URL
@@ -63,7 +86,7 @@ pnpm test
 pnpm build
 pnpm start
 # test with MCP CLI
-npx @wong2/mcp-cli --sse http://localhost:8080/sse
+pnpx @wong2/mcp-cli --sse http://localhost:8080/sse
 ```
 
 ## Contributing
@@ -76,6 +99,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## TODO
 
+- [ ] Explain key differences with the original mcp/fetch tool
 - [ ] Add LRU cache
 - [ ] Publish to npm
 - [ ] Dockerize and publish to docker hub
@@ -84,3 +108,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [ ] Add tests
 - [ ] Add documentation & examples
 - [ ] Add benchmarks for extraction: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
+- [ ] Showcase on FastMCP and MCP repositories

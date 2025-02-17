@@ -44,9 +44,6 @@ export function format(html: string): string {
   try {
     return turndownService.turndown(html);
   } catch (error) {
-    if (error instanceof FormatError) {
-      throw error;
-    }
     throw new FormatError('Failed to convert HTML to Markdown', error);
   }
 }

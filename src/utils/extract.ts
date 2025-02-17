@@ -108,7 +108,7 @@ export function extract(html: string) {
       removeEmptyElements: true,
     });
 
-    return result.trim();
+    return result;
   } catch (error) {
     if (error instanceof ExtractError) {
       throw error;

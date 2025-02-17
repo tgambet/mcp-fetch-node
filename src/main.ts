@@ -12,7 +12,7 @@ const ignoreRobotsTxt = args['ignore-robots-txt'] as boolean | undefined;
 export async function serve() {
   const server = new FastMCP({
     name: 'mcp-fetch-node',
-    version: '0.0.1',
+    version: '0.0.0', // TODO: use package.json version?
   });
 
   server.on('connect', (event) => {
@@ -22,8 +22,8 @@ export async function serve() {
     });
   });
 
-  server.on('disconnect', (event) => {
-    console.log('Client disconnected:', event.session);
+  server.on('disconnect', () => {
+    console.log('Client disconnected');
   });
 
   server.addTool(fetchTool(userAgent, ignoreRobotsTxt));
@@ -34,7 +34,7 @@ export async function serve() {
     transportType: 'sse',
     sse: {
       endpoint: '/sse',
-      port: 8080,
+      port: 8080, // TODO: make this configurable
     },
   });
 }
