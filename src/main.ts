@@ -15,6 +15,17 @@ export async function serve() {
     version: '0.0.1',
   });
 
+  server.on('connect', (event) => {
+    console.log('Client connected');
+    event.session.on('error', (event) => {
+      console.error('Session error:', event.error);
+    });
+  });
+
+  server.on('disconnect', (event) => {
+    console.log('Client disconnected:', event.session);
+  });
+
   server.addTool(fetchTool(userAgent, ignoreRobotsTxt));
 
   server.addPrompt(fetchPrompt(userAgent));

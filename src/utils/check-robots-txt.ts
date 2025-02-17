@@ -39,7 +39,7 @@ export async function checkRobotsTxt(
       .join('\n');
 
     // @ts-expect-error : bad types
-    const robotsTxt = robotsParser(robotTxtUrl, processedRobotTxt) as Robot;
+    const robotsTxt = robotsParser(robotsTxtUrl, processedRobotTxt) as Robot;
 
     if (robotsTxt.isDisallowed(targetUrl, userAgent)) {
       throw new RobotsTxtError(

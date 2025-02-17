@@ -62,6 +62,8 @@ pnpm format
 pnpm test
 pnpm build
 pnpm start
+# test with MCP CLI
+npx @wong2/mcp-cli --sse http://localhost:8080/sse
 ```
 
 ## Contributing
