@@ -2,3 +2,10 @@ release:
   branches:
     - main
     - next
+  plugins:
+    - - '@codedependant/semantic-release-docker'
+      - dockerFile: Dockerfile
+        dockerProject: tgambet
+        dockerImage: mcp-fetch-node
+        dockerRegistry: docker.io
+        dockerPlatform: ['linux/amd64', 'linux/arm64']
