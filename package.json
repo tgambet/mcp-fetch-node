@@ -28,6 +28,14 @@
     "node": ">=22",
     "pnpm": ">=10"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "fastmcp": "^1.16.3",
     "html-minifier": "^4.0.0",
