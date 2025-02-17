@@ -1,15 +1,11 @@
 # Dependencies
 node_modules/
-.pnpm-store/
-pnpm-lock.yaml
-npm-debug.log*
 
 # Testing
 coverage/
 
 # Production
 dist/
-build/
 
 # Environment variables
 .env
@@ -19,8 +15,6 @@ build/
 # IDE
 .idea/
 .vscode/
-*.swp
-*.swo
 
 # OS
 .DS_Store

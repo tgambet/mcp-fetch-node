@@ -1,6 +1,6 @@
 # Fetch MCP Server
 
-A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) (python) for Node.js.
+A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js.
 
 ## Description
 
@@ -101,9 +101,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 - [ ] Explain key differences with the original mcp/fetch tool
 - [ ] Add LRU cache
-- [ ] Publish to npm
 - [ ] Dockerize and publish to docker hub
-- [ ] Integrate semantic release
 - [ ] Add user logs and progress
 - [ ] Add tests
 - [ ] Add documentation & examples
