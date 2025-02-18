@@ -3,9 +3,9 @@
 A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js.
 
 > [!WARNING]
-> This project is a work in progress and may present bugs and issues.
+> This project is a work in progress and may present issues.
 >
-> Please report any issues to the [issue tracker](https://github.com/tgambet/mcp-fetch-node/issues).
+> Please report any to the [issue tracker](https://github.com/tgambet/mcp-fetch-node/issues).
 
 ## Description
 
@@ -37,25 +37,22 @@ The fetch tool will truncate the response, but by using the `start_index` argume
 }
 ```
 
-```json
+<!-- ```json
 "mcpServers": {
   "fetch": {
     "command": "docker",
     "args": ["run", "-i", "--rm", "tgambet/mcp-fetch-node"]
   }
 }
-```
+``` -->
 
 ### Customization - robots.txt
 
-By default, the server will obey a websites robots.txt file if the request came from the model (via a tool), but not if
-the request was user initiated (via a prompt). This can be disabled by adding the argument `--ignore-robots-txt` to the
-`args` list in the configuration.
+By default, the server will obey a websites robots.txt file if the request came from the model (via a tool), but not if the request was user initiated (via a prompt). This can be disabled by adding the argument `--ignore-robots-txt` to the `args` list in the configuration.
 
 ### Customization - User-agent
 
-By default, depending on if the request came from the model (via a tool), or was user initiated (via a prompt), the
-server will use either the user-agent
+By default, depending on if the request came from the model (via a tool), or was user initiated (via a prompt), the server will use either the user-agent
 
 ```
 ModelContextProtocol/1.0 (Autonomous; +https://github.com/tgambet/mcp-fetch-node)
@@ -90,8 +87,7 @@ pnpm format
 pnpm test
 pnpm build
 pnpm start
-# test with MCP CLI
-pnpx @wong2/mcp-cli --sse http://localhost:8080/sse
+pnpm inspect
 ```
 
 ## Contributing

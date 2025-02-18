@@ -14,7 +14,8 @@
     "lint:fix": "eslint src/** --fix",
     "format": "prettier --write \"**/*.{ts,json,md,yml,js}\"",
     "format:check": "prettier --check .",
-    "test": "node --import tsx --test tests/**"
+    "test": "node --import tsx --test tests/**",
+    "inspect": "pnpx @modelcontextprotocol/inspector"
   },
   "author": "Thomas Gambet",
   "repository": {
