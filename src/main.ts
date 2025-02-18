@@ -41,4 +41,7 @@ export async function serve() {
   });
 }
 
-await serve();
+serve().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
