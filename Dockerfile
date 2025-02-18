@@ -10,7 +10,9 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN pnpm build && pnpm prune --prod
+RUN pnpm build 
+
+RUN pnpm prune --prod
 
 EXPOSE 8080
 

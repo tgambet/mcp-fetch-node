@@ -1,8 +1,9 @@
 import { z } from 'zod';
+import { DEFAULT_USER_AGENT_AUTONOMOUS } from '../constants.js';
+import { checkRobotsTxt } from '../utils/check-robots-txt.js';
+import { cache } from '../utils/lru-cache.js';
 import { paginate } from '../utils/paginate.js';
 import { processURL } from '../utils/process-url.js';
-import { checkRobotsTxt } from '../utils/check-robots-txt.js';
-import { DEFAULT_USER_AGENT_AUTONOMOUS } from '../constants.js';
 
 export const fetchToolSchema = z.object({
   url: z.string().describe('URL to fetch.'),
@@ -40,10 +41,23 @@ This tool grants you internet access. You can fetch the most up-to-date informat
     raw,
   }: z.infer<typeof fetchToolSchema>) => {
     const ua = userAgent ?? DEFAULT_USER_AGENT_AUTONOMOUS;
-    if (!ignoreRobotsTxt) {
-      await checkRobotsTxt(url, ua);
+
+    const cacheKey = `${url}||${ua}||${raw.toString()}`;
+
+    const cached = cache.get(cacheKey);
+
+    let content, prefix;
+
+    if (cached) {
+      [content, prefix] = cached;
+    } else {
+      if (!ignoreRobotsTxt) await checkRobotsTxt(url, ua);
+
+      [content, prefix] = await processURL(url, ua, raw);
+
+      cache.set(cacheKey, [content, prefix]);
     }
-    const [content, prefix] = await processURL(url, ua, raw);
+
     return paginate(url, content, prefix, start_index, max_length);
   },
 });

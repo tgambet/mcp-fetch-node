@@ -65,10 +65,12 @@ export function extract(html: string) {
           '[hidden]',
           '[aria-hidden]',
           '[type="button"]',
+          '.hide',
           '.hide-sm',
           '.sr-only',
           '.d-none',
           '.d-sm-none',
+          '.toc',
           // TODO check popular CSS frameworks classes
           ...nodesToRemove,
         ].join(', '),

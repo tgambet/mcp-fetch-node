@@ -72,7 +72,7 @@ This can be customized by adding the argument `--user-agent=YourUserAgent` to th
 - [x] Relevant content extraction
 - [x] Raw content or markdown conversion
 - [x] Pagination
-- [ ] In-memory temporary cache for faster responses, especially when paginating
+- [x] In-memory cache for pagination
 - [ ] Logs and progress
 
 ## Development
@@ -100,10 +100,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## TODO
 
 - [ ] Explain key differences with the original mcp/fetch tool
-- [ ] Add LRU cache
-- [ ] Dockerize and publish to docker hub
 - [ ] Add user logs and progress
 - [ ] Add tests
 - [ ] Add documentation & examples
-- [ ] Add benchmarks for extraction: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
+- [ ] Performance benchmarks and improvements
+- [ ] Benchmarks for extraction quality: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
 - [ ] Showcase on FastMCP and MCP repositories

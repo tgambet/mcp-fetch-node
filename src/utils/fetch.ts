@@ -14,11 +14,13 @@ export async function fetch(
       redirect: 'follow',
       headers: { 'User-Agent': userAgent },
     });
+
     if (!response.ok) {
       throw new FetchError(
         `Failed to fetch ${url} - status code ${response.status.toString()}`,
       );
     }
+
     return {
       content: await response.text(),
       contentType: response.headers.get('content-type'),
