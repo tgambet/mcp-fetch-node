@@ -34,6 +34,11 @@ turndownService.addRule('pre', {
 turndownService.addRule('a', {
   filter: 'a',
   replacement: (_content, node) => {
+    // Handle anchor links
+    if (node.href && /^\/?#.*$/.test(node.href)) {
+      return node.innerText.trim();
+    }
+
     return node.href && node.innerText.trim()
       ? `[${node.innerText.trim()}](${node.href})`
       : '';

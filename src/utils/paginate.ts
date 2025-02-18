@@ -22,5 +22,5 @@ export function paginate(
       }
     }
   }
-  return [prefix, `Contents of ${url}`, result].join('\n');
+  return [prefix, `Contents of ${url}`, result].join('\n').trim();
 }
