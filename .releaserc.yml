@@ -2,9 +2,16 @@ branches:
   - main
   - next
 plugins:
+  - '@semantic-release/commit-analyzer'
+  - '@semantic-release/release-notes-generator'
+  - '@semantic-release/npm'
+  - '@semantic-release/git'
   - - '@codedependant/semantic-release-docker'
     - dockerFile: Dockerfile
       dockerProject: tgambet
       dockerImage: mcp-fetch-node
       dockerRegistry: docker.io
       dockerPlatform: ['linux/amd64', 'linux/arm64']
+      dockerBuildFlags:
+        provenance: 'mode=max'
+        attest: 'type=sbom'
