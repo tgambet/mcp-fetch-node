@@ -34,6 +34,6 @@ export const fetchPrompt = (userAgent?: string) => ({
       cache.set(cacheKey, [content, prefix]);
     }
 
-    return [prefix, content].join('\n');
+    return [prefix, content].join('\n').trim();
   },
 });
