@@ -10,21 +10,21 @@ export const fetchToolSchema = z.object({
   max_length: z
     .number()
     .min(0)
-    .max(1000000)
-    .default(5000)
-    .describe('Maximum number of characters to return.'),
+    .max(1_000_000)
+    .default(5_000)
+    .describe('Maximum number of characters to return. Default: 5000.'),
   start_index: z
     .number()
     .min(0)
     .default(0)
     .describe(
-      'Return output starting at this character index, useful if a previous fetch was truncated and more context is required.',
+      'Return output starting at this character index, useful if a previous fetch was truncated and more context is required. Default: 0.',
     ),
   raw: z
     .boolean()
     .default(false)
     .describe(
-      'Get the actual HTML content of the requested page, without simplification.',
+      'Get the actual HTML content of the requested page, without simplification. Default: false.',
     ),
 });
 
