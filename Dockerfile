@@ -6,7 +6,10 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod && \
+    chown -R node:node /app
+
+USER node
 
 COPY dist .
 
