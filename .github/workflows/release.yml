@@ -33,10 +33,12 @@ jobs:
           node-version: 'lts/*'
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        # https://github.com/docker/setup-buildx-action/releases/tag/v3.9.0
+        uses: docker/setup-buildx-action@f7ce87c1d6bead3e36075b2ce75da1f6cc28aaca
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        # https://github.com/pnpm/action-setup/releases/tag/v4.1.0
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
 
       - name: Install dependencies
         run: pnpm install

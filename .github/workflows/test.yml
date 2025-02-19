@@ -24,7 +24,8 @@ jobs:
           node-version: 'lts/*'
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        # https://github.com/pnpm/action-setup/releases/tag/v4.1.0
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
 
       - name: Install dependencies
         run: pnpm install
