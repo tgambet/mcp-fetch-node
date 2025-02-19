@@ -4,9 +4,6 @@ node_modules/
 # Testing
 coverage/
 
-# Production
-dist/
-
 # Environment variables
 .env
 .env.local
@@ -21,6 +18,7 @@ dist/
 Thumbs.db 
 
 # Others
+src/
 tests/
 .git
 .github
