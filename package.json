@@ -7,7 +7,7 @@
   "bin": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "dev": "tsx watch src/main.ts",
+    "dev": "tsx watch --clear-screen=false src/main.ts",
     "build": "tsc",
     "postbuild": "chmod +x dist/main.js",
     "lint": "eslint src/**",
