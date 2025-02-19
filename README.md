@@ -28,43 +28,37 @@ The fetch tool will truncate the response, but by using the `start_index` argume
 
 ## Usage
 
-```json
-"mcpServers": {
-  "fetch": {
-    "command": "npx",
-    "args": ["-y", "mcp-fetch-node"]
-  }
-}
+`mcp-fetch-node` exposes an SSE endpoint at `/sse` on port 8080 by default.
+
+Node.js:
+
+```bash
+npx -y mcp-fetch-node
 ```
 
-<!-- ```json
-"mcpServers": {
-  "fetch": {
-    "command": "docker",
-    "args": ["run", "-i", "--rm", "tgambet/mcp-fetch-node"]
-  }
-}
-``` -->
+Docker:
+
+```bash
+docker run -it tgambet/mcp-fetch-node
+```
 
 ### Customization - robots.txt
 
-By default, the server will obey a websites robots.txt file if the request came from the model (via a tool), but not if the request was user initiated (via a prompt). This can be disabled by adding the argument `--ignore-robots-txt` to the `args` list in the configuration.
+By default, the server will obey a websites robots.txt file if the request came from the model (via a tool), but not if the request was user initiated (via a prompt). This can be disabled by adding the argument `--ignore-robots-txt` to the run command.
 
 ### Customization - User-agent
 
 By default, depending on if the request came from the model (via a tool), or was user initiated (via a prompt), the server will use either the user-agent
 
 ```
+# Tool call
 ModelContextProtocol/1.0 (Autonomous; +https://github.com/tgambet/mcp-fetch-node)
-```
 
-or
-
-```
+# Prompt
 ModelContextProtocol/1.0 (User-Specified; +https://github.com/tgambet/mcp-fetch-node)
 ```
 
-This can be customized by adding the argument `--user-agent=YourUserAgent` to the `args` list in the configuration.
+This can be customized by adding the argument `--user-agent=YourUserAgent` to the run command, which will override both.
 
 ## Features
 
