@@ -1,4 +1,3 @@
-import { minify } from 'html-minifier';
 import { parseHTML } from 'linkedom';
 import sanitizeHtml from 'sanitize-html';
 
@@ -13,13 +12,6 @@ export class ExtractError extends Error {
     this.name = 'ExtractError';
   }
 }
-
-export const preProcessHtml = (html: string) => {
-  return html
-    .replace(/<style[^>]*?\/?>([\S\s]*?)<\/style>/gim, '')
-    .replace(/<script[^>]*?\/?>([\S\s]*?)<\/script>/gim, '')
-    .replace(/<template[^>]*?\/?>([\S\s]*?)<\/template>/gim, '');
-};
 
 const nodesToRemove = [
   'template',
@@ -38,11 +30,8 @@ const nodesToRemove = [
 
 export function extract(html: string) {
   try {
-    // Pre-sanitize the HTML
-    let result = preProcessHtml(html);
-
     // Sanitize the HTML
-    result = sanitizeHtml(result, {
+    let result = sanitizeHtml(html, {
       allowedTags: [
         'html',
         'body',
@@ -98,16 +87,6 @@ export function extract(html: string) {
     // Sanitize again
     result = sanitizeHtml(document.body.innerHTML as string, {
       allowedAttributes: { a: ['href'] },
-    });
-
-    // Minify
-    result = minify(result, {
-      collapseWhitespace: true,
-      preserveLineBreaks: false,
-      decodeEntities: true,
-      conservativeCollapse: false,
-      collapseInlineTagWhitespace: false,
-      removeEmptyElements: true,
     });
 
     return result;

@@ -24,6 +24,7 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "fetch"
   ],
   "license": "MIT",
@@ -42,7 +43,6 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.5.0",
     "express": "^5.0.1",
-    "html-minifier": "^4.0.0",
     "linkedom": "^0.18.9",
     "lru.min": "^1.1.1",
     "robots-parser": "^3.0.1",
@@ -55,16 +55,18 @@
     "@codedependant/semantic-release-docker": "^5.1.0",
     "@eslint/js": "^9.20.0",
     "@types/express": "^5.0.0",
-    "@types/html-minifier": "^4.0.5",
     "@types/node": "^22.13.4",
     "@types/sanitize-html": "^2.13.0",
     "@types/turndown": "^5.0.5",
     "eslint": "^9.20.1",
     "prettier": "^3.5.1",
     "semantic-release": "^24.2.3",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1"
+  },
+  "overrides": {
+    "esbuild": ">=0.25.0"
   },
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }
