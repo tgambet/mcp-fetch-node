@@ -13,5 +13,6 @@ plugins:
       dockerRegistry: docker.io
       dockerPlatform: ['linux/amd64', 'linux/arm64']
       dockerBuildFlags:
-        provenance: 'mode=max'
-        attest: 'type=sbom'
+        attest: 
+          - 'type=sbom'
+          - 'type=provenance,mode=max'
