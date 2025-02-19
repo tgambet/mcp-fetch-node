@@ -35,8 +35,8 @@ turndownService.addRule('a', {
   filter: 'a',
   replacement: (_content, node) => {
     // Handle anchor links
-    if (node.href && /^\/?#.*$/.test(node.href)) {
-      return node.innerText.trim();
+    if (node.href && /^\/?#.*$/.test(node.href as string)) {
+      return node.innerText.trim() as string;
     }
 
     return node.href && node.innerText.trim()

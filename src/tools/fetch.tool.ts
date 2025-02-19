@@ -1,18 +1,26 @@
+import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
+import { config } from '../config/config.js';
 import { DEFAULT_USER_AGENT_AUTONOMOUS } from '../constants.js';
 import { checkRobotsTxt } from '../utils/check-robots-txt.js';
 import { cache } from '../utils/lru-cache.js';
 import { paginate } from '../utils/paginate.js';
 import { processURL } from '../utils/process-url.js';
 
-export const fetchToolSchema = z.object({
+const name = 'fetch';
+
+const description = `Fetches a URL from the internet and optionally extracts its contents as markdown.`;
+
+const parameters = {
   url: z.string().describe('URL to fetch.'),
+
   max_length: z
     .number()
     .min(0)
     .max(1_000_000)
     .default(5_000)
     .describe('Maximum number of characters to return. Default: 5000.'),
+
   start_index: z
     .number()
     .min(0)
@@ -20,29 +28,21 @@ export const fetchToolSchema = z.object({
     .describe(
       'Return output starting at this character index, useful if a previous fetch was truncated and more context is required. Default: 0.',
     ),
+
   raw: z
     .boolean()
     .default(false)
     .describe(
       'Get the actual HTML content of the requested page, without simplification. Default: false.',
     ),
-});
+};
 
-export const fetchTool = (userAgent?: string, ignoreRobotsTxt?: boolean) => ({
-  name: 'fetch',
-  description: `Fetches a URL from the internet and optionally extracts its contents as markdown.
+const execute: ToolCallback<typeof parameters> =
+  // TODO: use signal to handle cancellation
+  async ({ url, max_length, start_index, raw }) => {
+    const userAgent = config['user-agent'] ?? DEFAULT_USER_AGENT_AUTONOMOUS;
 
-This tool grants you internet access. You can fetch the most up-to-date information and let the user know that.`,
-  parameters: fetchToolSchema,
-  execute: async ({
-    url,
-    max_length,
-    start_index,
-    raw,
-  }: z.infer<typeof fetchToolSchema>) => {
-    const ua = userAgent ?? DEFAULT_USER_AGENT_AUTONOMOUS;
-
-    const cacheKey = `${url}||${ua}||${raw.toString()}`;
+    const cacheKey = `${url}||${userAgent}||${raw.toString()}`;
 
     const cached = cache.get(cacheKey);
 
@@ -51,13 +51,23 @@ This tool grants you internet access. You can fetch the most up-to-date informat
     if (cached) {
       [content, prefix] = cached;
     } else {
-      if (!ignoreRobotsTxt) await checkRobotsTxt(url, ua);
+      if (!config['ignore-robots-txt']) await checkRobotsTxt(url, userAgent);
 
-      [content, prefix] = await processURL(url, ua, raw);
+      [content, prefix] = await processURL(url, userAgent, raw);
 
       cache.set(cacheKey, [content, prefix]);
     }
 
-    return paginate(url, content, prefix, start_index, max_length);
-  },
-});
+    const result = paginate(url, content, prefix, start_index, max_length);
+
+    return {
+      content: [{ type: 'text', text: result }],
+    };
+  };
+
+export const fetchTool = {
+  name,
+  description,
+  parameters,
+  execute,
+};

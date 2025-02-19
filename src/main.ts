@@ -1,47 +1,68 @@
 #!/usr/bin/env node
 
-import { FastMCP } from 'fastmcp';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
+import express from 'express';
+import { config } from './config/config.js';
 import { fetchPrompt } from './prompts/fetch.prompt.js';
 import { fetchTool } from './tools/fetch.tool.js';
-import { parseArgs } from './utils/parse-args.js';
 
-const args = parseArgs();
-
-const userAgent = args['user-agent'] as string | undefined;
-
-const ignoreRobotsTxt = args['ignore-robots-txt'] as boolean | undefined;
-
-export async function serve() {
-  const server = new FastMCP({
-    name: 'mcp-fetch-node',
-    version: '0.0.0', // TODO: use package.json version?
-  });
-
-  server.on('connect', (event) => {
-    console.log('Client connected');
-    event.session.on('error', (event) => {
-      console.error('Session error:', event.error);
-    });
-  });
-
-  server.on('disconnect', () => {
-    console.log('Client disconnected');
-  });
-
-  server.addTool(fetchTool(userAgent, ignoreRobotsTxt));
-
-  server.addPrompt(fetchPrompt(userAgent));
-
-  await server.start({
-    transportType: 'sse',
-    sse: {
-      endpoint: '/sse',
-      port: 8080, // TODO: make this configurable
-    },
-  });
-}
-
-serve().catch((err) => {
-  console.error(err);
-  process.exit(1);
+const server = new McpServer({
+  name: 'mcp-fetch-node',
+  version: '1.x.x',
 });
+
+server.tool(
+  fetchTool.name,
+  fetchTool.description,
+  fetchTool.parameters,
+  fetchTool.execute,
+);
+
+server.prompt(
+  fetchPrompt.name,
+  fetchPrompt.description,
+  fetchPrompt.parameters,
+  fetchPrompt.execute,
+);
+
+const app = express();
+
+const transports = new Map<string, SSEServerTransport>();
+
+app.get('/sse', async (_req, res) => {
+  const transport = new SSEServerTransport(`/messages`, res);
+
+  transports.set(transport.sessionId, transport);
+
+  await server.connect(transport);
+
+  res.on('close', () => {
+    transport.close().catch((err: unknown) => {
+      console.error(err);
+    });
+    transports.delete(transport.sessionId);
+  });
+});
+
+app.post('/messages', async (req, res) => {
+  const sessionId = req.query.sessionId as string;
+
+  if (!sessionId) {
+    res.status(400).json({ error: 'Missing id' });
+    return;
+  }
+
+  const transport = transports.get(sessionId);
+
+  if (!transport) {
+    res.status(404).json({ error: 'Transport not found' });
+    return;
+  }
+
+  await transport.handlePostMessage(req, res);
+});
+
+app.listen(config.port);
+
+console.log(`Server is running on port ${config.port.toString()}`);
