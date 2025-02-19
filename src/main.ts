@@ -3,10 +3,11 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import express from 'express';
+import { stdin as input, stdout as output } from 'node:process';
 import { createInterface } from 'node:readline/promises';
 import { config } from './config/config.js';
-import { fetchPrompt } from './prompts/fetch.prompt.js';
-import { fetchTool } from './tools/fetch.tool.js';
+import { fetchPrompt } from './fetch.prompt.js';
+import { fetchTool } from './fetch.tool.js';
 
 const server = new McpServer({
   name: 'mcp-fetch-node',
@@ -68,17 +69,8 @@ const expressServer = app.listen(config.port);
 
 console.log(`Server is running on port ${config.port.toString()}`);
 
-const rl = createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+await createInterface({ input, output }).question('Press enter to exit...\n');
 
-const cleanup = async () => {
-  expressServer.close();
-  await server.close();
-  rl.close();
-};
+expressServer.close();
 
-await rl.question('Press enter to exit...\n');
-
-await cleanup();
+await server.close();

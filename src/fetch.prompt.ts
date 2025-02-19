@@ -1,9 +1,9 @@
 import { PromptCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { DEFAULT_USER_AGENT_MANUAL } from '../constants.js';
-import { cache } from '../utils/lru-cache.js';
-import { processURL } from '../utils/process-url.js';
-import { config } from '../config/config.js';
+import { DEFAULT_USER_AGENT_MANUAL } from './constants.js';
+import { cache } from './utils/lru-cache.js';
+import { processURL } from './utils/process-url.js';
+import { config } from './config/config.js';
 
 const name = 'fetch';
 
