@@ -6,14 +6,10 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --prod
 
-COPY . .
-
-RUN pnpm build 
-
-RUN pnpm prune --prod
+COPY dist/ .
 
 EXPOSE 8080
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "main.js"]
