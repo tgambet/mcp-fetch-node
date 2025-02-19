@@ -1,11 +1,11 @@
 import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { config } from '../config/config.js';
-import { DEFAULT_USER_AGENT_AUTONOMOUS } from '../constants.js';
-import { checkRobotsTxt } from '../utils/check-robots-txt.js';
-import { cache } from '../utils/lru-cache.js';
-import { paginate } from '../utils/paginate.js';
-import { processURL } from '../utils/process-url.js';
+import { config } from './config/config.js';
+import { DEFAULT_USER_AGENT_AUTONOMOUS } from './constants.js';
+import { checkRobotsTxt } from './utils/check-robots-txt.js';
+import { cache } from './utils/lru-cache.js';
+import { paginate } from './utils/paginate.js';
+import { processURL } from './utils/process-url.js';
 
 const name = 'fetch';
 
