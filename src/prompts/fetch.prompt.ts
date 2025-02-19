@@ -1,39 +1,50 @@
-import { UserError } from 'fastmcp';
+import { PromptCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
 import { DEFAULT_USER_AGENT_MANUAL } from '../constants.js';
 import { cache } from '../utils/lru-cache.js';
 import { processURL } from '../utils/process-url.js';
+import { config } from '../config/config.js';
 
-export const fetchPrompt = (userAgent?: string) => ({
-  name: 'fetch',
-  description: 'Fetch a URL and extract its contents as markdown',
-  arguments: [
-    {
-      name: 'url',
-      description: 'URL to fetch',
-      required: true,
-    },
-  ],
-  load: async ({ url }: { url?: string }) => {
-    if (!url) {
-      throw new UserError('Missing required argument: url');
-    }
+const name = 'fetch';
 
-    const ua = userAgent ?? DEFAULT_USER_AGENT_MANUAL;
+const description = 'Fetch a URL and extract its contents as markdown';
 
-    const cacheKey = `${url}||${ua}||false`;
+const parameters = {
+  url: z.string().describe('URL to fetch.'),
+};
 
-    const cached = cache.get(cacheKey);
+const execute: PromptCallback<typeof parameters> = async ({ url }) => {
+  const userAgent = config['user-agent'] ?? DEFAULT_USER_AGENT_MANUAL;
 
-    let content, prefix;
+  const cacheKey = `${url}||${userAgent}||false`;
 
-    if (cached) {
-      [content, prefix] = cached;
-    } else {
-      [content, prefix] = await processURL(url, ua, false);
+  const cached = cache.get(cacheKey);
 
-      cache.set(cacheKey, [content, prefix]);
-    }
+  let content, prefix;
 
-    return [prefix, content].join('\n').trim();
-  },
-});
+  if (cached) {
+    [content, prefix] = cached;
+  } else {
+    [content, prefix] = await processURL(url, userAgent, false);
+
+    cache.set(cacheKey, [content, prefix]);
+  }
+
+  const result = [prefix, content].join('\n').trim();
+
+  return {
+    messages: [
+      {
+        role: 'user',
+        content: { type: 'text', text: result },
+      },
+    ],
+  };
+};
+
+export const fetchPrompt = {
+  name,
+  description,
+  parameters,
+  execute,
+};
