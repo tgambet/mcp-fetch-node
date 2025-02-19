@@ -68,14 +68,11 @@ This can be customized by adding the argument `--user-agent=YourUserAgent` to th
 
 ## Features
 
-- [x] Fetch and extract content from a URL
-- [x] Respect `robots.txt` (can be disabled)
-- [x] User-Agent customization
-- [x] Relevant content extraction
-- [x] Raw content or markdown conversion
-- [x] Pagination
-- [x] In-memory cache for pagination
-- [ ] Logs and progress
+- Fetch and extract relevant content from a URL
+- Respect `robots.txt` (can be disabled)
+- User-Agent customization
+- Markdown conversion
+- Pagination
 
 ## Development
 
@@ -106,4 +103,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [ ] Add documentation & examples
 - [ ] Performance benchmarks and improvements
 - [ ] Benchmarks for extraction quality: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
-- [ ] Showcase on FastMCP and MCP repositories
