@@ -48,7 +48,7 @@ export function extract(html: string) {
     const { document } = parseHTML(result);
 
     // Remove unwanted elements
-    document.body
+    document
       .querySelectorAll(
         [
           '[hidden]',
@@ -67,7 +67,7 @@ export function extract(html: string) {
       ?.forEach((a: any) => a.remove());
 
     // Remove nav-liked lists
-    document.querySelectorAll('ul, table, section').forEach((node: any) => {
+    document.querySelectorAll('ul, table').forEach((node: any) => {
       const list = node.cloneNode(true);
       list.querySelectorAll('a').forEach((a: any) => {
         a.innerHTML = '';
@@ -85,7 +85,7 @@ export function extract(html: string) {
     });
 
     // Sanitize again
-    result = sanitizeHtml(document.body.innerHTML as string, {
+    result = sanitizeHtml(document.documentElement.innerHTML as string, {
       allowedAttributes: { a: ['href'] },
     });
 

@@ -1,5 +1,4 @@
-import { ToolCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { z } from 'zod';
+import { z, ZodTypeAny } from 'zod';
 import { config } from './config/config.js';
 import { DEFAULT_USER_AGENT_AUTONOMOUS } from './constants.js';
 import { checkRobotsTxt } from './utils/check-robots-txt.js';
@@ -37,9 +36,12 @@ const parameters = {
     ),
 };
 
-const execute: ToolCallback<typeof parameters> =
+type Args = z.objectOutputType<typeof parameters, ZodTypeAny>;
+
+// ToolCallback<typeof parameters>
+const execute =
   // TODO: use signal to handle cancellation
-  async ({ url, max_length, start_index, raw }) => {
+  async ({ url, max_length, start_index, raw }: Args) => {
     const userAgent = config['user-agent'] ?? DEFAULT_USER_AGENT_AUTONOMOUS;
 
     const cacheKey = `${url}||${userAgent}||${raw.toString()}`;
@@ -61,7 +63,7 @@ const execute: ToolCallback<typeof parameters> =
     const result = paginate(url, content, prefix, start_index, max_length);
 
     return {
-      content: [{ type: 'text', text: result }],
+      content: [{ type: 'text' as const, text: result }],
     };
   };
 

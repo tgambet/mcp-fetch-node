@@ -1,9 +1,8 @@
-import { PromptCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { z } from 'zod';
+import { z, ZodTypeAny } from 'zod';
+import { config } from './config/config.js';
 import { DEFAULT_USER_AGENT_MANUAL } from './constants.js';
 import { cache } from './utils/lru-cache.js';
 import { processURL } from './utils/process-url.js';
-import { config } from './config/config.js';
 
 const name = 'fetch';
 
@@ -13,7 +12,10 @@ const parameters = {
   url: z.string().describe('URL to fetch.'),
 };
 
-const execute: PromptCallback<typeof parameters> = async ({ url }) => {
+type Args = z.objectOutputType<typeof parameters, ZodTypeAny>;
+
+// PromptCallback<typeof parameters>
+const execute = async ({ url }: Args) => {
   const userAgent = config['user-agent'] ?? DEFAULT_USER_AGENT_MANUAL;
 
   const cacheKey = `${url}||${userAgent}||false`;
@@ -37,7 +39,7 @@ const execute: PromptCallback<typeof parameters> = async ({ url }) => {
       {
         role: 'user',
         content: { type: 'text', text: result },
-      },
+      } as const,
     ],
   };
 };
