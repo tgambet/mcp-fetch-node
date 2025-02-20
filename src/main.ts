@@ -10,19 +10,19 @@ import { config } from './config/config.js';
 import { fetchPrompt } from './fetch.prompt.js';
 import { fetchTool } from './fetch.tool.js';
 
-const server = new McpServer({
+const mcp = new McpServer({
   name: 'mcp-fetch-node',
   version: '1.x.x',
 });
 
-server.tool(
+mcp.tool(
   fetchTool.name,
   fetchTool.description,
   fetchTool.parameters,
   fetchTool.execute,
 );
 
-server.prompt(
+mcp.prompt(
   fetchPrompt.name,
   fetchPrompt.description,
   fetchPrompt.parameters,
@@ -38,7 +38,7 @@ app.get('/sse', async (_req, res) => {
 
   transports.set(transport.sessionId, transport);
 
-  await server.connect(transport);
+  await mcp.connect(transport);
 
   res.on('close', () => {
     transport.close().catch((err: unknown) => {
@@ -66,7 +66,7 @@ app.post('/messages', async (req, res) => {
   await transport.handlePostMessage(req, res);
 });
 
-const expressServer = app.listen(config.port);
+const server = app.listen(config.port);
 
 console.log(`Server is running on port ${config.port.toString()}`);
 
@@ -76,8 +76,8 @@ await readline.question('Press enter to exit...\n');
 
 readline.close();
 
-expressServer.closeAllConnections();
+server.closeAllConnections();
 
-await promisify(expressServer.close)();
+await promisify(server.close.bind(server))();
 
-await server.close();
+await mcp.close();

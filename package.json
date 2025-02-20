@@ -14,7 +14,8 @@
     "lint:fix": "eslint src/** --fix",
     "format": "prettier --write \"**/*.{ts,json,md,yml,js}\"",
     "format:check": "prettier --check .",
-    "test": "node --import tsx --test tests/**",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "test:watch": "node --import tsx --test --watch tests/**/*.test.ts",
     "inspect": "pnpx @modelcontextprotocol/inspector",
     "fix": "pnpm format && pnpm lint:fix"
   },
