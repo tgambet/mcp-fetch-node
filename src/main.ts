@@ -5,6 +5,7 @@ import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import express from 'express';
 import { stdin as input, stdout as output } from 'node:process';
 import { createInterface } from 'node:readline/promises';
+import { promisify } from 'node:util';
 import { config } from './config/config.js';
 import { fetchPrompt } from './fetch.prompt.js';
 import { fetchTool } from './fetch.tool.js';
@@ -69,8 +70,14 @@ const expressServer = app.listen(config.port);
 
 console.log(`Server is running on port ${config.port.toString()}`);
 
-await createInterface({ input, output }).question('Press enter to exit...\n');
+const readline = createInterface({ input, output });
 
-expressServer.close();
+await readline.question('Press enter to exit...\n');
+
+readline.close();
+
+expressServer.closeAllConnections();
+
+await promisify(expressServer.close)();
 
 await server.close();
