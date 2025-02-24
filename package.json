@@ -43,7 +43,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@modelcontextprotocol/sdk": "^1.6.0",
     "express": "^5.0.1",
     "linkedom": "^0.18.9",
     "lru.min": "^1.1.1",
@@ -55,17 +55,17 @@
   },
   "devDependencies": {
     "@codedependant/semantic-release-docker": "^5.1.0",
-    "@eslint/js": "^9.20.0",
+    "@eslint/js": "^9.21.0",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.13.4",
+    "@types/node": "^22.13.5",
     "@types/sanitize-html": "^2.13.0",
     "@types/turndown": "^5.0.5",
-    "eslint": "^9.20.1",
-    "prettier": "^3.5.1",
+    "eslint": "^9.21.0",
+    "prettier": "^3.5.2",
     "semantic-release": "^24.2.3",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.1"
+    "typescript-eslint": "^8.25.0"
   },
   "overrides": {
     "esbuild": ">=0.25.0"
