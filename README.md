@@ -57,7 +57,7 @@ This can be customized by adding the argument `--user-agent=YourUserAgent` to th
 
 ## Key differences with the original project
 
-- This implementation is written in TypeScript and targets the Node.js runtime. 
+- This implementation is written in TypeScript and targets the Node.js runtime.
   It is suited for situations where python is not available.
 
 - This implementation provides an SSE interface instead of stdio.
