@@ -1,11 +1,6 @@
 # Fetch MCP Server
 
-A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js.
-
-> [!WARNING]
-> This project is a work in progress and may present issues.
->
-> Please report any to the [issue tracker](https://github.com/tgambet/mcp-fetch-node/issues).
+A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js. Please check the [key differences with original project](#key-differences-with-the-original-project) section for more details.
 
 ## Description
 
@@ -60,6 +55,21 @@ ModelContextProtocol/1.0 (User-Specified; +https://github.com/tgambet/mcp-fetch-
 
 This can be customized by adding the argument `--user-agent=YourUserAgent` to the run command, which will override both.
 
+## Key differences with the original project
+
+- This implementation is written in TypeScript and targets the Node.js runtime. 
+  It is suited for situations where python is not available.
+
+- This implementation provides an SSE interface instead of stdio.
+  It is more suitable for deployment as a web service, increasing portability.
+
+- This implementation does not rely on Readability.js library for content extraction.
+  It uses a custom implementation that is more generic and suited for websites other that news-related ones.
+
+The api and tool description is, however, the same as the original project so you can try `mcp-fetch-node` as a drop-in replacement for the original project.
+
+Please report any issue to the [issue tracker](https://github.com/tgambet/mcp-fetch-node/issues).
+
 ## Features
 
 - Fetch and extract relevant content from a URL
@@ -91,9 +101,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## TODO
 
-- [ ] Explain key differences with the original mcp/fetch tool
 - [ ] Add user logs and progress
-- [ ] Add tests
 - [ ] Add documentation & examples
 - [ ] Performance benchmarks and improvements
 - [ ] Benchmarks for extraction quality: cf https://github.com/adbar/trafilatura/blob/master/tests/comparison_small.py
