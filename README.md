@@ -61,7 +61,7 @@ This can be customized by adding the argument `--user-agent=YourUserAgent` to th
   It is suited for situations where python is not available.
 
 - This implementation provides an SSE interface instead of stdio.
-  It is more suitable for deployment as a web service, increasing portability.
+  It is more suitable for deployment as a web service, increasing flexibility.
 
 - This implementation does not rely on Readability.js library for content extraction.
   It uses a custom implementation that is more generic and suited for websites other that news-related ones.
