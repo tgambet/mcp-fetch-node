@@ -1861,8 +1861,8 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
-  reusify@1.0.4:
-    resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
+  reusify@1.1.0:
+    resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
   robots-parser@3.0.1:
@@ -3282,7 +3282,7 @@ snapshots:
 
   fastq@1.19.0:
     dependencies:
-      reusify: 1.0.4
+      reusify: 1.1.0
 
   figures@2.0.0:
     dependencies:
@@ -3999,7 +3999,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  reusify@1.0.4: {}
+  reusify@1.1.0: {}
 
   robots-parser@3.0.1: {}
 
