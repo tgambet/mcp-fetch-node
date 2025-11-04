@@ -1,28 +1,11 @@
-# Dependencies
-node_modules/
+# build artifacts
+dist
+node_modules
 
-# Testing
-coverage/
-
-# Environment variables
+# misc
 .env
-.env.local
-.env.*.local
-
-# IDE
-.idea/
-.vscode/
-
-# OS
 .DS_Store
-Thumbs.db 
-
-# Others
-src/
-tests/
-.git
+*.log
+Dockerfile
+.dockerignore
 .github
-.gitignore
-.prettierrc
-.releaserc.yml
-eslint.config.js
