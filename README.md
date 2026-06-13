@@ -1,5 +1,8 @@
 # Fetch MCP Server
 
+> [!NOTE]
+> This repository is archived. There are many other MCP servers implementations that do the same thing, and more.
+
 A port of the official [Fetch MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) for Node.js. Please check the [key differences with original project](#key-differences-with-the-original-project) section for more details.
 
 ## Description
